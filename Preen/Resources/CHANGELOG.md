@@ -1,3 +1,8 @@
+## 1.0.1
+
+### Fixed
+- Links unwrapped from Google, Outlook and other redirects keep line breaks and invisible characters escaped, so pasting one into Terminal can't run a command.
+
 ## 1.0
 
 ### New
