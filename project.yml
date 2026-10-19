@@ -1,0 +1,115 @@
+name: Preen
+options:
+  bundleIdPrefix: com.samunderwood
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+packages:
+  PreenCore:
+    path: Packages/PreenCore
+  SamKit:
+    url: https://github.com/samunderwood/samkit
+    from: 0.6.0
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: 9GJF8WHM63
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: Apple Development
+    ENABLE_HARDENED_RUNTIME: YES
+targets:
+  Preen:
+    type: application
+    platform: macOS
+    sources:
+      - path: Preen
+    postCompileScripts:
+      - name: Acknowledgements
+        basedOnDependencyAnalysis: false
+        script: |
+          script="${BUILD_DIR%/Build/*}/SourcePackages/checkouts/samkit/Tools/Acknowledgements/bundle.sh"
+          [[ -x $script ]] || script="${SAMKIT_DIR:-$HOME/Developer/SamKit}/Tools/Acknowledgements/bundle.sh"
+          "$script"
+        # Declared so Xcode signs the app again whenever the acknowledgements change.
+        outputFiles:
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Acknowledgements
+    postBuildScripts:
+      - name: Development icon
+        basedOnDependencyAnalysis: false
+        script: |
+          script="${BUILD_DIR%/Build/*}/SourcePackages/checkouts/samkit/Tools/DevelopmentBuild/icon.sh"
+          [[ -x $script ]] || script="${SAMKIT_DIR:-$HOME/Developer/SamKit}/Tools/DevelopmentBuild/icon.sh"
+          "$script"
+        # The inputs make it run after the Info.plist and icon are written, and the output makes Xcode
+        # sign the app again when the development icon changes.
+        inputFiles:
+          - $(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/$(ASSETCATALOG_COMPILER_APPICON_NAME).icns
+        outputFiles:
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/$(ASSETCATALOG_COMPILER_APPICON_NAME)-Dev.icns
+    dependencies:
+      - package: PreenCore
+      - package: SamKit
+      - package: SamKit
+        product: SamKitUpdates
+    info:
+      path: Preen/Resources/Info.plist
+      properties:
+        CFBundleName: $(APP_NAME)
+        CFBundleDisplayName: $(APP_NAME)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.utilities
+        SUFeedURL: https://updates.samunderwood.co.uk/preen/appcast.xml
+        SUEnableAutomaticChecks: true
+        SUPublicEDKey: Cb3WIp0r+aHMLslcdcK0sRpHSfuYSRhqP/71e4qxLwQ=
+        # Preen is sandboxed, so Sparkle installs updates through its XPC service.
+        SUEnableInstallerLauncherService: true
+        NSHumanReadableCopyright: © 2026 Sam Underwood
+        NSServices:
+          - NSMenuItem:
+              default: $(SERVICE_TITLE)
+            NSMessage: cleanLinks
+            NSPortName: $(APP_NAME)
+            NSSendTypes: [public.rtf, public.utf8-plain-text]
+            NSReturnTypes: [public.rtf, public.utf8-plain-text]
+    entitlements:
+      path: Preen/Resources/Preen.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        # Rule updates and Sparkle.
+        com.apple.security.network.client: true
+        # Choosing apps to leave alone in Settings.
+        com.apple.security.files.user-selected.read-only: true
+        # Lets Sparkle's installer talk to the app from outside the sandbox.
+        com.apple.security.temporary-exception.mach-lookup.global-name:
+          - $(PRODUCT_BUNDLE_IDENTIFIER)-spks
+          - $(PRODUCT_BUNDLE_IDENTIFIER)-spki
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.samunderwood.Preen
+        APP_NAME: Preen
+        SERVICE_TITLE: Clean Links
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        ASSETCATALOG_COMPILER_APPICON_NAME: Preen
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        # The acknowledgements phase reads the resolved packages.
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+      configs:
+        # Development builds are their own app, so they can run alongside the installed copy.
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.samunderwood.Preen.dev
+          APP_NAME: Preen Dev
+          SERVICE_TITLE: Clean Links (Preen Dev)
+schemes:
+  Preen:
+    build:
+      targets:
+        Preen: all
+    test:
+      targets:
+        - package: PreenCore/PreenCoreTests

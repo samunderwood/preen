@@ -1,0 +1,24 @@
+{
+  "originHash" : "4108ff65c2cdc0a2e976e07d714e3cc40ab9e9d99d8f15f9be368d392589487a",
+  "pins" : [
+    {
+      "identity" : "samkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/samunderwood/samkit",
+      "state" : {
+        "revision" : "9c4d181feafb999c6e860acf7f8b89931f67d0f5",
+        "version" : "0.6.0"
+      }
+    },
+    {
+      "identity" : "sparkle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparkle-project/Sparkle",
+      "state" : {
+        "revision" : "eef1a539a373c1f1a320624b1130fc5de7b2e100",
+        "version" : "2.10.0"
+      }
+    }
+  ],
+  "version" : 3
+}

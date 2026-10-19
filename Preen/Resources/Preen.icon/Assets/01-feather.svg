@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <g transform="translate(512 500) rotate(38)">
+    <path fill="#FFF6F1" d="M 0 175 C -95 150 -155 70 -162 -5 L -72 -58 L -150 -100 C -140 -200 -80 -280 0 -325 C 80 -280 140 -205 152 -135 L 62 -118 L 160 -60 C 160 50 100 145 0 175 Z M -14 160 L 14 160 L 12 330 Q 0 352 -12 330 Z"/>
+  </g>
+</svg>

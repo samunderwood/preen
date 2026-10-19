@@ -1,0 +1,5 @@
+Preen bundles and downloads the ClearURLs rules, maintained by Kevin Röbert and contributors.
+https://github.com/ClearURLs/Rules
+
+Licensed under the GNU Lesser General Public License, version 3.
+https://www.gnu.org/licenses/lgpl-3.0.html

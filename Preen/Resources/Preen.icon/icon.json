@@ -1,0 +1,107 @@
+{
+  "groups": [
+    {
+      "name": "02 · Shaft",
+      "layers": [
+        {
+          "image-name": "02-shaft.svg",
+          "name": "Shaft",
+          "fill-specializations": [
+            {
+              "appearance": "dark",
+              "value": {
+                "solid": "srgb:0.909804,0.376471,0.298039,1"
+              }
+            },
+            {
+              "appearance": "tinted",
+              "value": {
+                "solid": "gray:0.4,1"
+              }
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0
+      },
+      "translucency": {
+        "enabled": false,
+        "value": 0
+      },
+      "specular": false
+    },
+    {
+      "name": "01 · Feather",
+      "layers": [
+        {
+          "image-name": "01-feather.svg",
+          "name": "Feather",
+          "fill-specializations": [
+            {
+              "appearance": "dark",
+              "value": {
+                "solid": "srgb:1.000000,0.866667,0.819608,1"
+              }
+            },
+            {
+              "appearance": "tinted",
+              "value": {
+                "solid": "gray:0.9,1"
+              }
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.3
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.2
+      },
+      "specular": true,
+      "blend-mode-specializations": [
+        {
+          "appearance": "tinted",
+          "value": "plus-lighter"
+        }
+      ]
+    }
+  ],
+  "supported-platforms": {
+    "squares": [
+      "macOS"
+    ]
+  },
+  "fill-specializations": [
+    {
+      "value": {
+        "linear-gradient": [
+          "srgb:1.000000,0.580392,0.462745,1",
+          "srgb:0.882353,0.321569,0.243137,1"
+        ]
+      }
+    },
+    {
+      "appearance": "dark",
+      "value": {
+        "linear-gradient": [
+          "srgb:0.231373,0.094118,0.070588,1",
+          "srgb:0.117647,0.043137,0.031373,1"
+        ]
+      }
+    },
+    {
+      "appearance": "tinted",
+      "value": {
+        "linear-gradient": [
+          "gray:0.55,1",
+          "gray:0.35,1"
+        ]
+      }
+    }
+  ]
+}

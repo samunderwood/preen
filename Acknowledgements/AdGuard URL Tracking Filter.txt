@@ -1,0 +1,5 @@
+Preen bundles and downloads AdGuard's URL Tracking filter, maintained by AdGuard and contributors.
+https://github.com/AdguardTeam/AdguardFilters
+
+Licensed under the GNU General Public License, version 3.
+https://www.gnu.org/licenses/gpl-3.0.html

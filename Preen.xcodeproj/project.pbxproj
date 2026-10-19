@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03ED43EDFEE9AAC1C8B572B4 /* ClipboardWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4518C092E7C228F68DFE4A /* ClipboardWatcher.swift */; };
+		0D31A5A174041E99B0A8DD2D /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB7AB54533B830F24AA90D3 /* LoginItem.swift */; };
+		10043D66771BCADB8C0A4A67 /* RulesSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C93DAB6CD10F04724942DD /* RulesSettingsPane.swift */; };
+		2C62940A708E01271DBCE291 /* CleanLinksIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */; };
+		2C89453F2AA156A20B7DC602 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */; };
+		2DF0CA1C58CDAEFAAE2504F6 /* GeneralSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */; };
+		3730D16C5C98E07A157464F8 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4108303BED5C414D06B4B71 /* AppModel.swift */; };
+		55A134265A9803CAFBC21189 /* PreenWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9499ECF6E1C40714DA9C3B /* PreenWelcome.swift */; };
+		56ED8D23B4340E45474A1DD8 /* SamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F778E03ECD3259B42F5E30B /* SamKit */; };
+		59470918367BAEF5C60C7787 /* StatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3574DCAF9B8918735398FE /* StatusIcon.swift */; };
+		5E6AD8C6F7B867A78055725A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1A6F744F847ECF9A43740C /* Assets.xcassets */; };
+		6C3AF561A3C9F9FC6E6706D3 /* PreenCore in Frameworks */ = {isa = PBXBuildFile; productRef = 362FC826B56BEB171D9B19BC /* PreenCore */; };
+		7FAD002B70FB6E04B6D26D4C /* Preen.icon in Resources */ = {isa = PBXBuildFile; fileRef = F1F189179584F0810DC98594 /* Preen.icon */; };
+		975086DE108A7264BEC390A4 /* ExceptionsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DA5AEDF10842078D3B0D92 /* ExceptionsSettingsPane.swift */; };
+		A57890D79CD8CDC7F6724FE2 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A126D248B2EF2A8E76974A93 /* StatusItemController.swift */; };
+		A97B5E845A1A5B5A10E7028C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB1626175C284331CD6EC7 /* SettingsView.swift */; };
+		BD03D7ABE3E7BC386BC47002 /* clearurls.json in Resources */ = {isa = PBXBuildFile; fileRef = ED49E3C2EC77010C5EC6D5F9 /* clearurls.json */; };
+		CAD1D5542D53BAB355A4057C /* adguard-url-tracking.txt in Resources */ = {isa = PBXBuildFile; fileRef = 41C72D5A50168B87007449D0 /* adguard-url-tracking.txt */; };
+		D1EBD997106D932FD4643AE5 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72A9D9459C14019A8D1F1D /* ServiceProvider.swift */; };
+		D966F27465D35AC33EF4F0DC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7A1AABFF15253D78B61D39 /* main.swift */; };
+		DC3627553AB548FE28945774 /* SamKitUpdates in Frameworks */ = {isa = PBXBuildFile; productRef = 0B32C36EBA8E308D5AFE8F14 /* SamKitUpdates */; };
+		E5E34182D0F1A2391B3172D4 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C51A73A4FED397E907D10 /* Preferences.swift */; };
+		EA71BC63620E46FDDA1B340F /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = DC1A3A1E0EE5C9EBD2947080 /* CHANGELOG.md */; };
+		EB76E0A881A3992DF0866DB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807D23D03F55CE247001CA0C /* AppDelegate.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		24BB1626175C284331CD6EC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
+		41C72D5A50168B87007449D0 /* adguard-url-tracking.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "adguard-url-tracking.txt"; sourceTree = "<group>"; };
+		480BC922611247D47B6CBE27 /* Preen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPane.swift; sourceTree = "<group>"; };
+		4E72A9D9459C14019A8D1F1D /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
+		4EB7AB54533B830F24AA90D3 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
+		4F3574DCAF9B8918735398FE /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
+		4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanLinksIntent.swift; sourceTree = "<group>"; };
+		525380C25210E960D257344A /* Preen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Preen.entitlements; sourceTree = "<group>"; };
+		807D23D03F55CE247001CA0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8E7A1AABFF15253D78B61D39 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A126D248B2EF2A8E76974A93 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		A21C51A73A4FED397E907D10 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		A8C144A5D3BE054B285067AE /* PreenCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PreenCore; path = Packages/PreenCore; sourceTree = SOURCE_ROOT; };
+		AA9499ECF6E1C40714DA9C3B /* PreenWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreenWelcome.swift; sourceTree = "<group>"; };
+		B5DA5AEDF10842078D3B0D92 /* ExceptionsSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsSettingsPane.swift; sourceTree = "<group>"; };
+		CB809486329324CD35770D96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D6C93DAB6CD10F04724942DD /* RulesSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesSettingsPane.swift; sourceTree = "<group>"; };
+		DC1A3A1E0EE5C9EBD2947080 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		DF4518C092E7C228F68DFE4A /* ClipboardWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardWatcher.swift; sourceTree = "<group>"; };
+		E4108303BED5C414D06B4B71 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		EC1A6F744F847ECF9A43740C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED49E3C2EC77010C5EC6D5F9 /* clearurls.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = clearurls.json; sourceTree = "<group>"; };
+		F1F189179584F0810DC98594 /* Preen.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = Preen.icon; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F5F84DC15691676812DF43B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C3AF561A3C9F9FC6E6706D3 /* PreenCore in Frameworks */,
+				56ED8D23B4340E45474A1DD8 /* SamKit in Frameworks */,
+				DC3627553AB548FE28945774 /* SamKitUpdates in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13835A942B09AF99AA872FEA /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				DF4518C092E7C228F68DFE4A /* ClipboardWatcher.swift */,
+				4E72A9D9459C14019A8D1F1D /* ServiceProvider.swift */,
+			);
+			path = Clipboard;
+			sourceTree = "<group>";
+		};
+		1F1370C9164FF8D8295E977C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				807D23D03F55CE247001CA0C /* AppDelegate.swift */,
+				E4108303BED5C414D06B4B71 /* AppModel.swift */,
+				8E7A1AABFF15253D78B61D39 /* main.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		24C1B8D082FE18C4FCAF77E6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */,
+				B5DA5AEDF10842078D3B0D92 /* ExceptionsSettingsPane.swift */,
+				4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */,
+				4EB7AB54533B830F24AA90D3 /* LoginItem.swift */,
+				D6C93DAB6CD10F04724942DD /* RulesSettingsPane.swift */,
+				24BB1626175C284331CD6EC7 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		274CA07F9A2F58D77A7FF415 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				A21C51A73A4FED397E907D10 /* Preferences.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		3C77BA11A25E947490C164B1 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F3574DCAF9B8918735398FE /* StatusIcon.swift */,
+				A126D248B2EF2A8E76974A93 /* StatusItemController.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		512DBC2B17B232DD29C5FC5D /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
+		52E203F16EBA1F3B3B0A1318 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				A8C144A5D3BE054B285067AE /* PreenCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		5509DC71C7F9154633D76F93 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				41C72D5A50168B87007449D0 /* adguard-url-tracking.txt */,
+				ED49E3C2EC77010C5EC6D5F9 /* clearurls.json */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		754B9666EC6E5CDAF13FDAB5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EC1A6F744F847ECF9A43740C /* Assets.xcassets */,
+				DC1A3A1E0EE5C9EBD2947080 /* CHANGELOG.md */,
+				CB809486329324CD35770D96 /* Info.plist */,
+				525380C25210E960D257344A /* Preen.entitlements */,
+				F1F189179584F0810DC98594 /* Preen.icon */,
+				5509DC71C7F9154633D76F93 /* Rules */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9272246361B27DD09CEC7D27 = {
+			isa = PBXGroup;
+			children = (
+				52E203F16EBA1F3B3B0A1318 /* Packages */,
+				B0B6F9BF753AC69C11127CD1 /* Preen */,
+				A903C2CCAEFC239CFBD7AA1F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A903C2CCAEFC239CFBD7AA1F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				480BC922611247D47B6CBE27 /* Preen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD74B2810119C90B6773DC0F /* FirstRun */ = {
+			isa = PBXGroup;
+			children = (
+				AA9499ECF6E1C40714DA9C3B /* PreenWelcome.swift */,
+			);
+			path = FirstRun;
+			sourceTree = "<group>";
+		};
+		B0B6F9BF753AC69C11127CD1 /* Preen */ = {
+			isa = PBXGroup;
+			children = (
+				1F1370C9164FF8D8295E977C /* App */,
+				13835A942B09AF99AA872FEA /* Clipboard */,
+				AD74B2810119C90B6773DC0F /* FirstRun */,
+				512DBC2B17B232DD29C5FC5D /* Intents */,
+				3C77BA11A25E947490C164B1 /* MenuBar */,
+				754B9666EC6E5CDAF13FDAB5 /* Resources */,
+				24C1B8D082FE18C4FCAF77E6 /* Settings */,
+				274CA07F9A2F58D77A7FF415 /* Support */,
+			);
+			path = Preen;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		87895593B339E6A575B28A40 /* Preen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CF160AD2C5FACE562FF4CB7 /* Build configuration list for PBXNativeTarget "Preen" */;
+			buildPhases = (
+				EF186AD580A4B29155CD41A1 /* Sources */,
+				04C98516D5C95987624D5BBC /* Acknowledgements */,
+				EA5D0993F6776C3C351A0D79 /* Resources */,
+				F5F84DC15691676812DF43B7 /* Frameworks */,
+				865DD39A6B8CA031B7AFE847 /* Development icon */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Preen;
+			packageProductDependencies = (
+				362FC826B56BEB171D9B19BC /* PreenCore */,
+				6F778E03ECD3259B42F5E30B /* SamKit */,
+				0B32C36EBA8E308D5AFE8F14 /* SamKitUpdates */,
+			);
+			productName = Preen;
+			productReference = 480BC922611247D47B6CBE27 /* Preen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		998C4027E8156AD46DE30C8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					87895593B339E6A575B28A40 = {
+						DevelopmentTeam = 9GJF8WHM63;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = C3A54C84B1515318C44AA713 /* Build configuration list for PBXProject "Preen" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 9272246361B27DD09CEC7D27;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */,
+				CC799A7EE810C58E27DED899 /* XCLocalSwiftPackageReference "Packages/PreenCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A903C2CCAEFC239CFBD7AA1F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				87895593B339E6A575B28A40 /* Preen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA5D0993F6776C3C351A0D79 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E6AD8C6F7B867A78055725A /* Assets.xcassets in Resources */,
+				EA71BC63620E46FDDA1B340F /* CHANGELOG.md in Resources */,
+				7FAD002B70FB6E04B6D26D4C /* Preen.icon in Resources */,
+				CAD1D5542D53BAB355A4057C /* adguard-url-tracking.txt in Resources */,
+				BD03D7ABE3E7BC386BC47002 /* clearurls.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04C98516D5C95987624D5BBC /* Acknowledgements */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Acknowledgements;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Acknowledgements",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "script=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/samkit/Tools/Acknowledgements/bundle.sh\"\n[[ -x $script ]] || script=\"${SAMKIT_DIR:-$HOME/Developer/SamKit}/Tools/Acknowledgements/bundle.sh\"\n\"$script\"\n";
+		};
+		865DD39A6B8CA031B7AFE847 /* Development icon */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/$(ASSETCATALOG_COMPILER_APPICON_NAME).icns",
+			);
+			name = "Development icon";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/$(ASSETCATALOG_COMPILER_APPICON_NAME)-Dev.icns",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "script=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/samkit/Tools/DevelopmentBuild/icon.sh\"\n[[ -x $script ]] || script=\"${SAMKIT_DIR:-$HOME/Developer/SamKit}/Tools/DevelopmentBuild/icon.sh\"\n\"$script\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF186AD580A4B29155CD41A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C89453F2AA156A20B7DC602 /* AboutSettingsPane.swift in Sources */,
+				EB76E0A881A3992DF0866DB1 /* AppDelegate.swift in Sources */,
+				3730D16C5C98E07A157464F8 /* AppModel.swift in Sources */,
+				2C62940A708E01271DBCE291 /* CleanLinksIntent.swift in Sources */,
+				03ED43EDFEE9AAC1C8B572B4 /* ClipboardWatcher.swift in Sources */,
+				975086DE108A7264BEC390A4 /* ExceptionsSettingsPane.swift in Sources */,
+				2DF0CA1C58CDAEFAAE2504F6 /* GeneralSettingsPane.swift in Sources */,
+				0D31A5A174041E99B0A8DD2D /* LoginItem.swift in Sources */,
+				55A134265A9803CAFBC21189 /* PreenWelcome.swift in Sources */,
+				E5E34182D0F1A2391B3172D4 /* Preferences.swift in Sources */,
+				10043D66771BCADB8C0A4A67 /* RulesSettingsPane.swift in Sources */,
+				D1EBD997106D932FD4643AE5 /* ServiceProvider.swift in Sources */,
+				A97B5E845A1A5B5A10E7028C /* SettingsView.swift in Sources */,
+				59470918367BAEF5C60C7787 /* StatusIcon.swift in Sources */,
+				A57890D79CD8CDC7F6724FE2 /* StatusItemController.swift in Sources */,
+				D966F27465D35AC33EF4F0DC /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		29E8C0C33DDFF941E33390A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_NAME = Preen;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Preen;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Preen/Resources/Preen.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = Preen/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samunderwood.Preen;
+				SDKROOT = macosx;
+				SERVICE_TITLE = "Clean Links";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+			};
+			name = Release;
+		};
+		62AAE36DE8DD1A195A303267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9GJF8WHM63;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		9D55AFB7A43C66418332A5FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9GJF8WHM63;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		BA03C60A3D29342450DEE9F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_NAME = "Preen Dev";
+				ASSETCATALOG_COMPILER_APPICON_NAME = Preen;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Preen/Resources/Preen.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = Preen/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samunderwood.Preen.dev;
+				SDKROOT = macosx;
+				SERVICE_TITLE = "Clean Links (Preen Dev)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CF160AD2C5FACE562FF4CB7 /* Build configuration list for PBXNativeTarget "Preen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA03C60A3D29342450DEE9F3 /* Debug */,
+				29E8C0C33DDFF941E33390A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C3A54C84B1515318C44AA713 /* Build configuration list for PBXProject "Preen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62AAE36DE8DD1A195A303267 /* Debug */,
+				9D55AFB7A43C66418332A5FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		CC799A7EE810C58E27DED899 /* XCLocalSwiftPackageReference "Packages/PreenCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/PreenCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/samunderwood/samkit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B32C36EBA8E308D5AFE8F14 /* SamKitUpdates */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */;
+			productName = SamKitUpdates;
+		};
+		362FC826B56BEB171D9B19BC /* PreenCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PreenCore;
+		};
+		6F778E03ECD3259B42F5E30B /* SamKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */;
+			productName = SamKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 998C4027E8156AD46DE30C8C /* Project object */;
+}
