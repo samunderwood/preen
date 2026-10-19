@@ -98,6 +98,16 @@ struct LinkCleanerTests {
         #expect(clean("https://www.google.com/url?q=https://example.com/search?q%3Da%2526b%26id%3D1&sa=D") == "https://example.com/search?q=a%26b&id=1")
         #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2Fa%2520b&sa=D") == "https://example.com/a%20b")
         #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2F%3Fq%3Da%2Bb&sa=D") == "https://example.com/?q=a+b")
+        // Line breaks, tabs and direction marks stay escaped, so they can't run a pasted command or
+        // disguise the address.
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2F%0Arm%09-rf&sa=D") == "https://example.com/%0Arm%09-rf")
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2Fa%E2%80%AEb&sa=D") == "https://example.com/a%E2%80%AEb")
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2F%0D%1Bx&sa=D") == "https://example.com/%0D%1Bx")
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2Fa%E3%85%A4b&sa=D") == "https://example.com/a%E3%85%A4b")
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2F%60id%60%7Csh%C2%A0&sa=D") == "https://example.com/%60id%60%7Csh%C2%A0")
+        // A link wrapped twice comes out escaped once, and letters still decode.
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fwww.google.com%2Furl%3Fq%3Dhttps%253A%252F%252Fexample.com%252F%250Ax&sa=D") == "https://example.com/%0Ax")
+        #expect(clean("https://www.google.com/url?q=https%3A%2F%2Fexample.com%2Fcaf%C3%A9&sa=D") == "https://example.com/café")
     }
 
     @Test func keepsEscapesInLinksCarriedAsTheyAre() throws {

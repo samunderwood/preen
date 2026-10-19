@@ -86,8 +86,22 @@ public struct ClearURLsRules: Sendable {
         let hasLiteralScheme = lowered.hasPrefix("http://") || lowered.hasPrefix("https://")
         guard isParameterValue || !hasLiteralScheme else { return captured }
         guard let decoded = captured.removingPercentEncoding else { return nil }
-        // A decoded space would end the link wherever it's pasted.
-        return decoded.replacingOccurrences(of: " ", with: "%20")
+        // Decoded, a space would end the link wherever it's pasted, a line break or a character
+        // links can't contain, such as a backtick, could run a command when it's pasted into
+        // Terminal, and direction marks and invisible characters could disguise the address, so
+        // they stay escaped.
+        var target = ""
+        for scalar in decoded.unicodeScalars {
+            let properties = scalar.properties
+            if properties.isWhitespace || properties.isDefaultIgnorableCodePoint
+                || [.control, .format].contains(properties.generalCategory)
+                || #""<>^`{|}"#.unicodeScalars.contains(scalar) {
+                target += String(scalar).utf8.map { String(format: "%%%02X", $0) }.joined()
+            } else {
+                target.unicodeScalars.append(scalar)
+            }
+        }
+        return target
     }
 
     private static func wrapper(_ prefix: String, link: String) -> Provider {
