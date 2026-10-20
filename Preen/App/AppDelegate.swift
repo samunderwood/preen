@@ -9,7 +9,7 @@ import SwiftUI
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let model = AppModel()
     private var statusItemController: StatusItemController?
-    private var settingsWindow: SettingsWindowController?
+    private var settingsWindow: SettingsWindowController!
     private var serviceProvider: ServiceProvider?
     private var showsWelcome = false
 
@@ -28,6 +28,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         OnboardingWindow.showWhatsNewIfNeeded(appName: "Preen", tint: .preen)
         showsWelcome = WelcomeLaunch.isPending()
         NSApp.mainMenu = MainMenu.make(target: self)
+        settingsWindow = SettingsWindowController(width: 680, height: 520, minHeight: 420) { [model] in
+            SettingsView().environment(model)
+        }
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -47,8 +50,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     /// Opening Preen again from Finder or Spotlight shows Settings.
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        if !flag { openSettings(nil) }
-        return false
+        settingsWindow.handleReopen()
     }
 
     @objc func openSettings(_ sender: Any?) {
@@ -63,12 +65,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let tab {
             SettingsNavigation.shared.selectedTab = tab
         }
-        if settingsWindow == nil {
-            settingsWindow = SettingsWindowController(width: 680, height: 520, minHeight: 420) { [model] in
-                SettingsView().environment(model)
-            }
-        }
-        settingsWindow?.show()
+        settingsWindow.show()
     }
 }
 

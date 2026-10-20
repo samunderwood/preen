@@ -6,7 +6,6 @@ import SwiftUI
 
 struct GeneralSettingsPane: View {
     @Environment(AppModel.self) private var model
-    @State private var loginItem = LoginItem.status
     @AppStorage(Feedback.soundsEnabledKey) private var playsSounds = true
 
     var body: some View {
@@ -30,19 +29,16 @@ struct GeneralSettingsPane: View {
             }
 
             Section {
-                Toggle(isOn: Binding(get: { loginItem.isOn }, set: { loginItem = LoginItem.set($0) })) {
-                    Text("Open at login")
-                    if loginItem == .needsApproval {
-                        Text("Allow Preen in System Settings > General > Login Items.")
-                    }
-                }
+                LoginItemToggle(model: model.loginItem)
 
                 Toggle("Play sounds", isOn: $playsSounds)
             }
         }
         .settingsPaneStyle()
         .onAppear {
-            loginItem = LoginItem.status
+            model.refreshClipboardAccess()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             model.refreshClipboardAccess()
         }
     }

@@ -4,6 +4,18 @@ import AppKit
 import PreenCore
 import UniformTypeIdentifiers
 
+enum PreenPasteboard {
+    static let current: NSPasteboard = {
+#if DEBUG
+        // Keeps automatic monitoring and Welcome's sample off the person's clipboard in GUI checks.
+        if ProcessInfo.processInfo.arguments.contains("--verify-ui") {
+            return NSPasteboard.withUniqueName()
+        }
+#endif
+        return .general
+    }()
+}
+
 /// Text copied with a link in it, read from the clipboard.
 struct Copy {
     let text: String
@@ -26,7 +38,7 @@ struct Copy {
 /// it holds a link, so other copies, such as messages and passwords, are never read, and where
 /// macOS asks before an app reads the clipboard, the question only comes up for links.
 final class ClipboardWatcher {
-    private let pasteboard = NSPasteboard.general
+    private let pasteboard = PreenPasteboard.current
     private var timer: Timer?
     private var lastChangeCount: Int
     /// The change count after Preen's own last write, so it doesn't clean what it just wrote.

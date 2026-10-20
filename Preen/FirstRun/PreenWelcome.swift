@@ -2,7 +2,6 @@
 
 import AppKit
 import SamKit
-import ServiceManagement
 import SwiftUI
 
 extension Color {
@@ -22,7 +21,6 @@ enum PreenWelcome {
 
 private struct PreenWelcomeView: View {
     @Environment(AppModel.self) private var model
-    @State private var loginItem = LoginItem.status
     let onFinish: () -> Void
 
     private static let example = "https://example.com/recipes/lemon-tart?utm_source=newsletter&utm_medium=email&fbclid=IwAR2xYz"
@@ -49,12 +47,7 @@ private struct PreenWelcomeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .task {
-            while !Task.isCancelled {
-                loginItem = LoginItem.status
-                try? await Task.sleep(for: .seconds(1.5))
-            }
-        }
+        .onAppear { model.loginItem.refresh() }
         .onDisappear {
             WelcomeLaunch.finish()
         }
@@ -71,8 +64,8 @@ private struct PreenWelcomeView: View {
             isDone: model.cleanCount > 0
         ) {
             // Written as any other app would, so Preen cleans it like any other copy.
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(Self.example, forType: .string)
+            PreenPasteboard.current.clearContents()
+            PreenPasteboard.current.setString(Self.example, forType: .string)
             try? await Task.sleep(for: .seconds(1))
         }
     }
@@ -81,19 +74,15 @@ private struct PreenWelcomeView: View {
         WelcomeStep(
             id: "login",
             title: "Open at Login",
-            detail: loginItem == .needsApproval
+            detail: model.loginItem.failureMessage ?? (model.loginItem.requiresApproval
                 ? "Allow Preen in System Settings > General > Login Items"
-                : "So links are cleaned from the moment you start your Mac",
-            actionTitle: loginItem == .needsApproval ? "Open Settings…" : "Turn On",
+                : "So links are cleaned from the moment you start your Mac"),
+            actionTitle: model.loginItem.requiresApproval ? "Open Settings…" : (model.loginItem.failureMessage == nil ? "Turn On" : "Try Again"),
             systemImage: "power",
             tint: .preen,
-            isDone: loginItem == .on
+            isDone: model.loginItem.isEnabled
         ) {
-            if loginItem == .needsApproval {
-                SMAppService.openSystemSettingsLoginItems()
-            } else {
-                loginItem = LoginItem.set(true)
-            }
+            model.loginItem.setEnabled(true)
         }
     }
 }

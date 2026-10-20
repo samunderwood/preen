@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		03ED43EDFEE9AAC1C8B572B4 /* ClipboardWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4518C092E7C228F68DFE4A /* ClipboardWatcher.swift */; };
-		0D31A5A174041E99B0A8DD2D /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB7AB54533B830F24AA90D3 /* LoginItem.swift */; };
 		10043D66771BCADB8C0A4A67 /* RulesSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C93DAB6CD10F04724942DD /* RulesSettingsPane.swift */; };
 		2C62940A708E01271DBCE291 /* CleanLinksIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */; };
 		2C89453F2AA156A20B7DC602 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */; };
@@ -40,7 +39,6 @@
 		480BC922611247D47B6CBE27 /* Preen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPane.swift; sourceTree = "<group>"; };
 		4E72A9D9459C14019A8D1F1D /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
-		4EB7AB54533B830F24AA90D3 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		4F3574DCAF9B8918735398FE /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
 		4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanLinksIntent.swift; sourceTree = "<group>"; };
 		525380C25210E960D257344A /* Preen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Preen.entitlements; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */,
 				B5DA5AEDF10842078D3B0D92 /* ExceptionsSettingsPane.swift */,
 				4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */,
-				4EB7AB54533B830F24AA90D3 /* LoginItem.swift */,
 				D6C93DAB6CD10F04724942DD /* RulesSettingsPane.swift */,
 				24BB1626175C284331CD6EC7 /* SettingsView.swift */,
 			);
@@ -339,7 +336,6 @@
 				03ED43EDFEE9AAC1C8B572B4 /* ClipboardWatcher.swift in Sources */,
 				975086DE108A7264BEC390A4 /* ExceptionsSettingsPane.swift in Sources */,
 				2DF0CA1C58CDAEFAAE2504F6 /* GeneralSettingsPane.swift in Sources */,
-				0D31A5A174041E99B0A8DD2D /* LoginItem.swift in Sources */,
 				55A134265A9803CAFBC21189 /* PreenWelcome.swift in Sources */,
 				E5E34182D0F1A2391B3172D4 /* Preferences.swift in Sources */,
 				10043D66771BCADB8C0A4A67 /* RulesSettingsPane.swift in Sources */,
@@ -565,7 +561,7 @@
 			repositoryURL = "https://github.com/samunderwood/samkit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.0;
+				minimumVersion = 0.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

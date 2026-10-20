@@ -33,6 +33,8 @@ struct CleanEvent: Identifiable {
 
 @Observable
 final class AppModel {
+    let loginItem = LoginItem()
+
     enum PauseDuration: CaseIterable {
         case hour, untilTomorrow, untilResumed
 
@@ -89,7 +91,7 @@ final class AppModel {
         excludedApps = (defaults.array(forKey: PreferenceKey.excludedApps) ?? []).compactMap(ExcludedApp.init(plist:))
         updatesRulesAutomatically = defaults.bool(forKey: PreferenceKey.updatesRules)
         pausedUntil = (defaults.object(forKey: PreferenceKey.pausedUntil) as? Date).flatMap { $0 > .now ? $0 : nil }
-        clipboardAccess = NSPasteboard.general.accessBehavior
+        clipboardAccess = PreenPasteboard.current.accessBehavior
     }
 
     func start() {

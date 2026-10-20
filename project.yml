@@ -9,7 +9,7 @@ packages:
     path: Packages/PreenCore
   SamKit:
     url: https://github.com/samunderwood/samkit
-    from: 0.6.0
+    from: 0.11.0
 settings:
   base:
     SWIFT_VERSION: "6.0"
