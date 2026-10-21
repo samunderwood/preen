@@ -284,7 +284,8 @@ final class AppModel {
     /// which happens only when it launched Preen, the rules are loaded on the spot.
     private func cleanerNow() -> LinkCleaner {
         if let cleaner { return cleaner }
-        use(try! downloader.loadNow(bundled: AppFiles.bundledRules), from: 0)
+        ruleLoads += 1
+        use(try! downloader.loadNow(bundled: AppFiles.bundledRules), from: ruleLoads)
         return cleaner!
     }
 
