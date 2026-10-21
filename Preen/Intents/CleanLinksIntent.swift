@@ -18,6 +18,7 @@ struct CleanLinksIntent: AppIntent {
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> {
-        .result(value: await model.cleanText(text).text)
+        await model.waitForRules()
+        return .result(value: await model.cleanText(text).text)
     }
 }

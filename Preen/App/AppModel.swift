@@ -69,11 +69,19 @@ final class AppModel {
         didSet { UserDefaults.standard.set(updatesRulesAutomatically, forKey: PreferenceKey.updatesRules) }
     }
 
-    private(set) var ruleStatus: [RuleSource: RuleStatus]
+    private(set) var ruleStatus: [RuleSource: RuleStatus] = [:]
     private(set) var ruleUpdateState = RuleUpdateState.idle
     private(set) var clipboardAccess: NSPasteboard.AccessBehavior
 
-    private var cleaner: LinkCleaner
+    /// Nil until the rules first load, which happens off the main actor since compiling them takes
+    /// tens of milliseconds.
+    private var cleaner: LinkCleaner?
+    /// A copy made before the rules first loaded, cleaned once they have.
+    @ObservationIgnored private var pendingCopy: Copy?
+    @ObservationIgnored private var firstRuleLoad: Task<Void, Never>?
+    /// Counts rule loads, so one that finishes late never replaces newer rules.
+    @ObservationIgnored private var ruleLoads = 0
+    @ObservationIgnored private var ruleLoadInUse = 0
     private let watcher = ClipboardWatcher()
     private let downloader: RuleDownloader
     private var resumeTimer: Timer?
@@ -87,11 +95,11 @@ final class AppModel {
         let downloader = RuleDownloader(directory: AppFiles.rules)
         self.exceptedSites = exceptedSites
         self.downloader = downloader
-        (cleaner, ruleStatus) = Self.loadRules(from: downloader, exceptedSites: exceptedSites)
         excludedApps = (defaults.array(forKey: PreferenceKey.excludedApps) ?? []).compactMap(ExcludedApp.init(plist:))
         updatesRulesAutomatically = defaults.bool(forKey: PreferenceKey.updatesRules)
         pausedUntil = (defaults.object(forKey: PreferenceKey.pausedUntil) as? Date).flatMap { $0 > .now ? $0 : nil }
         clipboardAccess = PreenPasteboard.current.accessBehavior
+        firstRuleLoad = loadRules()
     }
 
     func start() {
@@ -102,7 +110,6 @@ final class AppModel {
         Timer.scheduledTimer(withTimeInterval: 60 * 60, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.updateRulesIfDue() }
         }
-        updateRulesIfDue()
     }
 
     var lastClean: CleanEvent? { history.first }
@@ -120,6 +127,12 @@ final class AppModel {
         // Images, files and apps' own data would be lost, and so would the formatting of rich text
         // with words around its links.
         if copy.hasLossyContent || (copy.hasRichText && !copy.isSingleLink) { return }
+        guard let cleaner else {
+            // Written once the rules load, unless something newer has been copied or Preen has been
+            // paused by then.
+            pendingCopy = copy
+            return
+        }
         let result = cleaner.clean(copy.text)
         let title = copy.urlName.map { cleaner.clean($0).text }
         guard result.changed, let changeCount = watcher.write(result, title: title, replacing: copy) else { return }
@@ -139,12 +152,12 @@ final class AppModel {
 
     /// Cleans text from Services or Shortcuts, which don't involve the clipboard.
     func cleanText(_ text: String) -> CleanResult {
-        cleaner.clean(text)
+        cleanerNow().clean(text)
     }
 
     /// The clean version of one link, or nil if there's nothing to clean.
     func cleanLink(_ link: String) -> String? {
-        cleaner.cleanLink(link)?.cleaned
+        cleanerNow().cleanLink(link)?.cleaned
     }
 
     func restore(_ event: CleanEvent) {
@@ -199,7 +212,7 @@ final class AppModel {
     // MARK: - Exceptions
 
     func isExcepted(site: String) -> Bool {
-        cleaner.isExcepted(site)
+        cleaner?.isExcepted(site) ?? false
     }
 
     func addException(_ site: String) {
@@ -224,7 +237,7 @@ final class AppModel {
 
     private func saveExceptions() {
         UserDefaults.standard.set(exceptedSites, forKey: PreferenceKey.exceptedSites)
-        cleaner.exceptedSites = Set(exceptedSites)
+        cleaner?.exceptedSites = Set(exceptedSites)
     }
 
     func addExcludedApp(_ app: ExcludedApp) {
@@ -253,23 +266,50 @@ final class AppModel {
 
     // MARK: - Rules
 
-    /// Uses the downloaded rules where they're good, and the bundled ones otherwise. Downloads are
-    /// checked before they're saved, and the bundled copies are part of the build, so rules that
-    /// don't load mean a broken build.
-    private static func loadRules(from downloader: RuleDownloader, exceptedSites: [String]) -> (LinkCleaner, [RuleSource: RuleStatus]) {
-        func load(_ source: RuleSource) -> (data: Data, downloaded: Date?) {
-            if let saved = downloader.saved(source) { return (saved.data, saved.date) }
-            return (try! Data(contentsOf: AppFiles.bundledRules(source.fileName)), nil)
+    /// Loads the rules off the main actor, keeping the ones in use until the new ones are ready.
+    /// Downloads are checked before they're saved, and the bundled copies are part of the build, so
+    /// rules that don't load mean a broken build.
+    private func loadRules() -> Task<Void, Never> {
+        ruleLoads += 1
+        let load = ruleLoads
+        let downloader = downloader
+        let bundled = AppFiles.bundledRules
+        // Starts straight away, rather than once the main actor is free after launching.
+        return Task.immediate {
+            use(try! await downloader.load(bundled: bundled), from: load)
         }
-        let list = load(.adGuard)
-        let clearURLsFile = load(.clearURLs)
-        let parameters = TrackingParameterRules(list: String(decoding: list.data, as: UTF8.self))
-        let clearURLs = try! ClearURLsRules(data: clearURLsFile.data)
-        let cleaner = LinkCleaner(parameters: parameters, clearURLs: clearURLs, exceptedSites: Set(exceptedSites))
-        return (cleaner, [
-            .adGuard: RuleStatus(ruleCount: parameters.ruleCount, downloaded: list.downloaded),
-            .clearURLs: RuleStatus(ruleCount: clearURLs.parameterRuleCount + clearURLs.redirectRuleCount, downloaded: clearURLsFile.downloaded),
-        ])
+    }
+
+    /// The Services menu has to answer straight away, so if it asks before the rules first load,
+    /// which happens only when it launched Preen, the rules are loaded on the spot.
+    private func cleanerNow() -> LinkCleaner {
+        if let cleaner { return cleaner }
+        use(try! downloader.loadNow(bundled: AppFiles.bundledRules), from: 0)
+        return cleaner!
+    }
+
+    /// Waits for the rules to first load, for a Shortcuts action that launched Preen.
+    func waitForRules() async {
+        await firstRuleLoad?.value
+    }
+
+    /// Puts loaded rules in use, with the current exceptions, unless newer ones already are. Any
+    /// rules are better than none.
+    private func use(_ rules: RuleSet, from load: Int) {
+        let isFirst = cleaner == nil
+        guard isFirst || load > ruleLoadInUse else { return }
+        ruleLoadInUse = load
+        cleaner = LinkCleaner(parameters: rules.parameters, clearURLs: rules.clearURLs, exceptedSites: Set(exceptedSites))
+        ruleStatus = [
+            .adGuard: RuleStatus(ruleCount: rules.parameters.ruleCount, downloaded: rules.downloaded[.adGuard]),
+            .clearURLs: RuleStatus(ruleCount: rules.clearURLs.parameterRuleCount + rules.clearURLs.redirectRuleCount, downloaded: rules.downloaded[.clearURLs]),
+        ]
+        guard isFirst else { return }
+        if let copy = pendingCopy {
+            pendingCopy = nil
+            clean(copy)
+        }
+        updateRulesIfDue()
     }
 
     private func updateRulesIfDue() {
@@ -293,7 +333,7 @@ final class AppModel {
                     failed = true
                 }
             }
-            (cleaner, ruleStatus) = Self.loadRules(from: downloader, exceptedSites: exceptedSites)
+            await loadRules().value
             ruleUpdateState = failed ? .failed : .idle
         }
     }

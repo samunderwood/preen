@@ -46,3 +46,39 @@ struct RuleSourceTests {
         #expect(!RuleSource.clearURLs.isValid(Data("not json".utf8)))
     }
 }
+
+struct RuleLoadingTests {
+    let saved = FileManager.default.temporaryDirectory.appending(path: "PreenRuleLoading-\(UUID().uuidString)")
+
+    private func save(_ source: RuleSource, _ data: Data? = nil) throws {
+        try FileManager.default.createDirectory(at: saved, withIntermediateDirectories: true)
+        let data = try data ?? Data(contentsOf: RuleSourceTests.fixtures.appending(path: source.fileName))
+        try data.write(to: saved.appending(path: source.fileName))
+    }
+
+    @Test func usesTheBundledRulesBeforeAnyDownload() async throws {
+        let rules = try await RuleDownloader(directory: saved).load(bundled: RuleSourceTests.fixtures)
+        #expect(rules.downloaded.isEmpty)
+        #expect(rules.parameters.ruleCount >= 1_000)
+        #expect(rules.clearURLs.parameterRuleCount >= 200)
+    }
+
+    @Test func usesGoodDownloadsAndSaysWhen() async throws {
+        defer { try? FileManager.default.removeItem(at: saved) }
+        for source in RuleSource.allCases { try save(source) }
+        let rules = try await RuleDownloader(directory: saved).load(bundled: RuleSourceTests.fixtures)
+        #expect(Set(rules.downloaded.keys) == Set(RuleSource.allCases))
+        #expect(rules.parameters.ruleCount >= 1_000)
+    }
+
+    /// A damaged download falls back to the bundled copy of that list only.
+    @Test func fallsBackToTheBundledCopyOfABadDownload() async throws {
+        defer { try? FileManager.default.removeItem(at: saved) }
+        try save(.adGuard, Data("<html>Not found</html>".utf8))
+        try save(.clearURLs)
+        let rules = try RuleDownloader(directory: saved).loadNow(bundled: RuleSourceTests.fixtures)
+        #expect(rules.downloaded[.adGuard] == nil)
+        #expect(rules.downloaded[.clearURLs] != nil)
+        #expect(rules.parameters.ruleCount >= 1_000)
+    }
+}

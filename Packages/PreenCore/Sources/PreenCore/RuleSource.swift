@@ -44,13 +44,24 @@ public enum RuleSource: String, CaseIterable, Sendable, Identifiable {
     /// more rules than these minimums.
     func isValid(_ data: Data) -> Bool {
         switch self {
-        case .adGuard:
-            guard Self.hasValidChecksum(data), let text = String(data: data, encoding: .utf8) else { return false }
-            return TrackingParameterRules(list: text).ruleCount >= 1_000
-        case .clearURLs:
-            guard let rules = try? ClearURLsRules(data: data) else { return false }
-            return rules.parameterRuleCount >= 200 && rules.redirectRuleCount >= ClearURLsRules.builtIn.count + 30
+        case .adGuard: Self.parameterRules(data) != nil
+        case .clearURLs: Self.clearURLsRules(data) != nil
         }
+    }
+
+    /// The AdGuard rules a file holds, or nil if it isn't a usable set.
+    static func parameterRules(_ data: Data) -> TrackingParameterRules? {
+        guard hasValidChecksum(data), let text = String(data: data, encoding: .utf8) else { return nil }
+        let rules = TrackingParameterRules(list: text)
+        return rules.ruleCount >= 1_000 ? rules : nil
+    }
+
+    /// The ClearURLs rules a file holds, or nil if it isn't a usable set.
+    static func clearURLsRules(_ data: Data) -> ClearURLsRules? {
+        guard let rules = try? ClearURLsRules(data: data),
+              rules.parameterRuleCount >= 200, rules.redirectRuleCount >= ClearURLsRules.builtIn.count + 30
+        else { return nil }
+        return rules
     }
 }
 
@@ -106,10 +117,43 @@ public struct RuleDownloader: Sendable {
         self.session = session
     }
 
-    /// The downloaded copy and when it was saved, if there is one.
-    public func saved(_ source: RuleSource) -> (data: Data, date: Date)? {
+    /// Compiles the downloaded rules where they're good, and the bundled ones otherwise. Compiling
+    /// both takes tens of milliseconds, so this runs off the caller's actor.
+    /// - Parameter bundled: The folder holding the copies bundled with the app.
+    @concurrent
+    public func load(bundled: URL) async throws -> RuleSet {
+        try loadNow(bundled: bundled)
+    }
+
+    /// `load(bundled:)` on the caller's thread, for a caller that has to answer straight away.
+    public func loadNow(bundled: URL) throws -> RuleSet {
+        func bundledFile(_ source: RuleSource) throws -> Data {
+            try Data(contentsOf: bundled.appending(path: source.fileName))
+        }
+        var downloaded: [RuleSource: Date] = [:]
+
+        // Checking a downloaded file compiles it, so a good one is compiled only once.
+        let parameters: TrackingParameterRules
+        if let saved = saved(.adGuard), let rules = RuleSource.parameterRules(saved.data) {
+            parameters = rules
+            downloaded[.adGuard] = saved.date
+        } else {
+            parameters = TrackingParameterRules(list: String(decoding: try bundledFile(.adGuard), as: UTF8.self))
+        }
+        let clearURLs: ClearURLsRules
+        if let saved = saved(.clearURLs), let rules = RuleSource.clearURLsRules(saved.data) {
+            clearURLs = rules
+            downloaded[.clearURLs] = saved.date
+        } else {
+            clearURLs = try ClearURLsRules(data: bundledFile(.clearURLs))
+        }
+        return RuleSet(parameters: parameters, clearURLs: clearURLs, downloaded: downloaded)
+    }
+
+    /// The downloaded copy, not yet checked, and when it was saved, if there is one.
+    private func saved(_ source: RuleSource) -> (data: Data, date: Date)? {
         let url = directory.appending(path: source.fileName)
-        guard let data = try? Data(contentsOf: url), source.isValid(data),
+        guard let data = try? Data(contentsOf: url),
               let date = try? url.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
         else { return nil }
         return (data, date)
@@ -127,4 +171,12 @@ public struct RuleDownloader: Sendable {
         try data.write(to: directory.appending(path: source.fileName), options: .atomic)
         return data
     }
+}
+
+/// Both sets of rules, compiled and ready to clean with.
+public struct RuleSet: Sendable {
+    public let parameters: TrackingParameterRules
+    public let clearURLs: ClearURLsRules
+    /// When each set in use was downloaded. Sets missing here are the copies bundled with the app.
+    public let downloaded: [RuleSource: Date]
 }

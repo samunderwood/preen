@@ -53,7 +53,8 @@ enum AppFiles {
         URL.applicationSupportDirectory.appending(path: "Rules")
     }
 
-    static func bundledRules(_ name: String) -> URL {
-        Bundle.main.url(forResource: name, withExtension: nil)!
+    /// The folder holding the rules bundled with the app.
+    static var bundledRules: URL {
+        Bundle.main.resourceURL!
     }
 }
