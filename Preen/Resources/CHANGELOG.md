@@ -1,3 +1,12 @@
+## 1.0.3 (21 October 2026)
+
+### Improved
+- Preen loads and updates its cleaning rules without holding up the menu bar or your copies.
+
+### Fixed
+- A link you copy while Preen is starting up is cleaned as soon as it's ready.
+- Pausing Preen takes effect straight away, including for a link copied just before.
+
 ## 1.0.2 (21 October 2026)
 
 ### Fixed
