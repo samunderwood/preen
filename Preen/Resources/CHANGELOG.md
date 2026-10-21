@@ -1,3 +1,13 @@
+## 1.0.2 (21 October 2026)
+
+### Fixed
+- Open at login shows when macOS needs your approval and lets you retry if it fails, both in Settings and during setup.
+- Settings refreshes your clipboard permission status when you return to Preen.
+- Opening Preen again brings back an open or minimised window, or opens Settings if none is open.
+- Settings opens on your current desktop and the display where your pointer is.
+- Welcome and What's New no longer take you away from what you're typing when they appear automatically.
+- Sounds now respect your Mac's Play user interface sound effects setting.
+
 ## 1.0.1
 
 ### Fixed
