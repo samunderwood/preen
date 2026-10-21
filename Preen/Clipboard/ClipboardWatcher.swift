@@ -139,7 +139,8 @@ final class ClipboardWatcher {
     }
 
     private func read(changeCount: Int, watch: Int?) async -> Copy? {
-        guard await detectsLink(pasteboard),
+        // Detection can outlast a pause; reading after it could bring up macOS's approval question.
+        guard await detectsLink(pasteboard), watch == nil || watch == self.watch,
               pasteboard.changeCount == changeCount,
               let item = pasteboard.pasteboardItems?.first,
               let text = item.string(forType: .string),
