@@ -12,9 +12,11 @@
 		2C62940A708E01271DBCE291 /* CleanLinksIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA80071AFD629D2BAE8E28 /* CleanLinksIntent.swift */; };
 		2C89453F2AA156A20B7DC602 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A0C065E0B03CC72D6A287 /* AboutSettingsPane.swift */; };
 		2DF0CA1C58CDAEFAAE2504F6 /* GeneralSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */; };
+		34BBA107D7BBA28DA226AD30 /* ClipboardWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4518C092E7C228F68DFE4A /* ClipboardWatcher.swift */; };
 		3730D16C5C98E07A157464F8 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4108303BED5C414D06B4B71 /* AppModel.swift */; };
 		55A134265A9803CAFBC21189 /* PreenWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9499ECF6E1C40714DA9C3B /* PreenWelcome.swift */; };
 		56ED8D23B4340E45474A1DD8 /* SamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F778E03ECD3259B42F5E30B /* SamKit */; };
+		56F28D56D0B6405E3A240B3D /* ClipboardWatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B21D6D4DD01C03FDBF8770 /* ClipboardWatcherTests.swift */; };
 		59470918367BAEF5C60C7787 /* StatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3574DCAF9B8918735398FE /* StatusIcon.swift */; };
 		5E6AD8C6F7B867A78055725A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1A6F744F847ECF9A43740C /* Assets.xcassets */; };
 		6C3AF561A3C9F9FC6E6706D3 /* PreenCore in Frameworks */ = {isa = PBXBuildFile; productRef = 362FC826B56BEB171D9B19BC /* PreenCore */; };
@@ -22,6 +24,7 @@
 		975086DE108A7264BEC390A4 /* ExceptionsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DA5AEDF10842078D3B0D92 /* ExceptionsSettingsPane.swift */; };
 		A57890D79CD8CDC7F6724FE2 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A126D248B2EF2A8E76974A93 /* StatusItemController.swift */; };
 		A97B5E845A1A5B5A10E7028C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB1626175C284331CD6EC7 /* SettingsView.swift */; };
+		AE12467C81FC3AF10AFF3AB1 /* PreenCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7090B1A92C654A24964559 /* PreenCore */; };
 		BD03D7ABE3E7BC386BC47002 /* clearurls.json in Resources */ = {isa = PBXBuildFile; fileRef = ED49E3C2EC77010C5EC6D5F9 /* clearurls.json */; };
 		CAD1D5542D53BAB355A4057C /* adguard-url-tracking.txt in Resources */ = {isa = PBXBuildFile; fileRef = 41C72D5A50168B87007449D0 /* adguard-url-tracking.txt */; };
 		D1EBD997106D932FD4643AE5 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72A9D9459C14019A8D1F1D /* ServiceProvider.swift */; };
@@ -33,7 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14B21D6D4DD01C03FDBF8770 /* ClipboardWatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardWatcherTests.swift; sourceTree = "<group>"; };
 		24BB1626175C284331CD6EC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3A2C9C6A31BAA397D9000AD1 /* PreenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PreenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4080A68F99C0BA16465E2C03 /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
 		41C72D5A50168B87007449D0 /* adguard-url-tracking.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "adguard-url-tracking.txt"; sourceTree = "<group>"; };
 		480BC922611247D47B6CBE27 /* Preen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preen.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +65,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0DB3258DAE0B4B4CD316B4EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE12467C81FC3AF10AFF3AB1 /* PreenCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5F84DC15691676812DF43B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,6 +177,7 @@
 			children = (
 				52E203F16EBA1F3B3B0A1318 /* Packages */,
 				B0B6F9BF753AC69C11127CD1 /* Preen */,
+				A92EA825064067F976C3BCB4 /* PreenTests */,
 				A903C2CCAEFC239CFBD7AA1F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,8 +186,17 @@
 			isa = PBXGroup;
 			children = (
 				480BC922611247D47B6CBE27 /* Preen.app */,
+				3A2C9C6A31BAA397D9000AD1 /* PreenTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A92EA825064067F976C3BCB4 /* PreenTests */ = {
+			isa = PBXGroup;
+			children = (
+				14B21D6D4DD01C03FDBF8770 /* ClipboardWatcherTests.swift */,
+			);
+			path = PreenTests;
 			sourceTree = "<group>";
 		};
 		AD74B2810119C90B6773DC0F /* FirstRun */ = {
@@ -202,6 +225,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6BD3F66338656A219C606ADE /* PreenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AC3BCC59B253FC7A6E74769 /* Build configuration list for PBXNativeTarget "PreenTests" */;
+			buildPhases = (
+				49B67A1D014032D0EDE0FD9C /* Sources */,
+				0DB3258DAE0B4B4CD316B4EC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PreenTests;
+			packageProductDependencies = (
+				4E7090B1A92C654A24964559 /* PreenCore */,
+			);
+			productName = PreenTests;
+			productReference = 3A2C9C6A31BAA397D9000AD1 /* PreenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		87895593B339E6A575B28A40 /* Preen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6CF160AD2C5FACE562FF4CB7 /* Build configuration list for PBXNativeTarget "Preen" */;
@@ -235,6 +277,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					6BD3F66338656A219C606ADE = {
+						DevelopmentTeam = 9GJF8WHM63;
+						ProvisioningStyle = Manual;
+					};
 					87895593B339E6A575B28A40 = {
 						DevelopmentTeam = 9GJF8WHM63;
 						ProvisioningStyle = Manual;
@@ -260,6 +306,7 @@
 			projectRoot = "";
 			targets = (
 				87895593B339E6A575B28A40 /* Preen */,
+				6BD3F66338656A219C606ADE /* PreenTests */,
 			);
 		};
 /* End PBXProject section */
@@ -325,6 +372,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		49B67A1D014032D0EDE0FD9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34BBA107D7BBA28DA226AD30 /* ClipboardWatcher.swift in Sources */,
+				56F28D56D0B6405E3A240B3D /* ClipboardWatcherTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EF186AD580A4B29155CD41A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +581,40 @@
 			};
 			name = Debug;
 		};
+		F48254BCCB589E8B67587A3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samunderwood.PreenTests;
+				SDKROOT = macosx;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+			};
+			name = Release;
+		};
+		FD3BC0C03436E7666465AE5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samunderwood.PreenTests;
+				SDKROOT = macosx;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -533,6 +623,15 @@
 			buildConfigurations = (
 				BA03C60A3D29342450DEE9F3 /* Debug */,
 				29E8C0C33DDFF941E33390A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8AC3BCC59B253FC7A6E74769 /* Build configuration list for PBXNativeTarget "PreenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD3BC0C03436E7666465AE5A /* Debug */,
+				F48254BCCB589E8B67587A3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -573,6 +672,10 @@
 			productName = SamKitUpdates;
 		};
 		362FC826B56BEB171D9B19BC /* PreenCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PreenCore;
+		};
+		4E7090B1A92C654A24964559 /* PreenCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PreenCore;
 		};

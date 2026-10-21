@@ -20,6 +20,8 @@ enum PreenPasteboard {
 struct Copy {
     let text: String
     let changeCount: Int
+    /// The stretch of watching the copy was found in, or nil for one read on request.
+    let watch: Int?
     /// Whether the text is one link and nothing else, as from Copy Link or an address bar.
     let isSingleLink: Bool
     /// The link's title, kept when Preen writes the clean link.
@@ -38,12 +40,16 @@ struct Copy {
 /// it holds a link, so other copies, such as messages and passwords, are never read, and where
 /// macOS asks before an app reads the clipboard, the question only comes up for links.
 final class ClipboardWatcher {
-    private let pasteboard = PreenPasteboard.current
+    private let pasteboard: NSPasteboard
+    private let detectsLink: @MainActor (NSPasteboard) async -> Bool
     private var timer: Timer?
     private var lastChangeCount: Int
     /// The change count after Preen's own last write, so it doesn't clean what it just wrote.
     private var ownChangeCount: Int?
     private var inspecting = false
+    private(set) var inspection: Task<Void, Never>?
+    /// Changes each time watching stops, so a copy found before then is never written.
+    private var watch = 0
     /// The apps that were frontmost since the last check, any of which could have made a copy.
     private var recentApps: [NSRunningApplication] = []
     private var activationObserver: NSObjectProtocol?
@@ -53,7 +59,11 @@ final class ClipboardWatcher {
     var shouldInspect: (_ possibleSources: [NSRunningApplication]) -> Bool = { _ in true }
     var onCopy: (Copy) -> Void = { _ in }
 
-    init() {
+    /// - Parameter detectsLink: Asks whether a copy holds a link without reading it. Tests replace it
+    ///   to hold an inspection in flight.
+    init(pasteboard: NSPasteboard = PreenPasteboard.current, detectsLink: @escaping @MainActor (NSPasteboard) async -> Bool = ClipboardWatcher.detectsLink) {
+        self.pasteboard = pasteboard
+        self.detectsLink = detectsLink
         lastChangeCount = pasteboard.changeCount
     }
 
@@ -81,13 +91,17 @@ final class ClipboardWatcher {
     }
 
     func stop() {
+        watch += 1
+        // Leaves `inspecting` as it is: a read waiting for macOS's approval still holds the pasteboard.
+        inspection?.cancel()
+        inspection = nil
         timer?.invalidate()
         timer = nil
         activationObserver.map(NSWorkspace.shared.notificationCenter.removeObserver)
         activationObserver = nil
     }
 
-    private func check() {
+    func check() {
         // Where macOS asks before an app reads the clipboard, the read waits for an answer in a
         // nested run loop holding the pasteboard, and touching it again from there crashes.
         guard !inspecting else { return }
@@ -104,10 +118,12 @@ final class ClipboardWatcher {
         guard shouldInspect(possibleSources + recentApps), Self.mayHoldCleanableText(pasteboard) else { return }
 
         inspecting = true
-        Task {
-            let copy = await read(changeCount: changeCount)
+        let watch = watch
+        inspection = Task {
+            let copy = await read(changeCount: changeCount, watch: watch)
             // Cleared before the copy is handled, since handling it writes to the clipboard.
             inspecting = false
+            guard watch == self.watch else { return }
             copy.map(onCopy)
         }
     }
@@ -119,13 +135,11 @@ final class ClipboardWatcher {
         guard Self.mayHoldCleanableText(pasteboard) else { return nil }
         inspecting = true
         defer { inspecting = false }
-        return await read(changeCount: changeCount)
+        return await read(changeCount: changeCount, watch: nil)
     }
 
-    private func read(changeCount: Int) async -> Copy? {
-        // NSPasteboard isn't marked Sendable, but the general pasteboard is safe to use from any thread.
-        nonisolated(unsafe) let general = pasteboard
-        guard let found = try? await general.detectedPatterns(for: [\.probableWebURL, \.links]), !found.isEmpty,
+    private func read(changeCount: Int, watch: Int?) async -> Copy? {
+        guard await detectsLink(pasteboard),
               pasteboard.changeCount == changeCount,
               let item = pasteboard.pasteboardItems?.first,
               let text = item.string(forType: .string),
@@ -136,6 +150,7 @@ final class ClipboardWatcher {
         return Copy(
             text: text,
             changeCount: changeCount,
+            watch: watch,
             isSingleLink: LinkCleaner.isSingleLink(text),
             urlName: types.contains(.urlName) ? item.string(forType: .urlName) : nil,
             hasRichText: !types.isSubset(of: Self.plainTypes),
@@ -143,12 +158,20 @@ final class ClipboardWatcher {
         )
     }
 
-    /// Writes cleaned text in place of a copy, unless something newer has been copied since. A single
-    /// link keeps its title, cleaned too, since browsers often use the address as the title. Rich
-    /// text forms such as HTML are left out rather than rewritten, since HTML can write a link in too
-    /// many ways to be sure none still holds the tracked one. Returns the clipboard's change count
-    /// after the write.
+    private static func detectsLink(_ pasteboard: NSPasteboard) async -> Bool {
+        // NSPasteboard isn't marked Sendable, but the general pasteboard is safe to use from any thread.
+        nonisolated(unsafe) let general = pasteboard
+        guard let found = try? await general.detectedPatterns(for: [\.probableWebURL, \.links]) else { return false }
+        return !found.isEmpty
+    }
+
+    /// Writes cleaned text in place of a copy, unless something newer has been copied since or the
+    /// copy was found before watching last stopped, as it does for a pause. A single link keeps its
+    /// title, cleaned too, since browsers often use the address as the title. Rich text forms such as
+    /// HTML are left out rather than rewritten, since HTML can write a link in too many ways to be
+    /// sure none still holds the tracked one. Returns the clipboard's change count after the write.
     func write(_ cleaned: CleanResult, title: String?, replacing copy: Copy) -> Int? {
+        if let watch = copy.watch, watch != self.watch { return nil }
         let item = NSPasteboardItem()
         item.setString(cleaned.text, forType: .string)
         if copy.isSingleLink {

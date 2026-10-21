@@ -50,6 +50,17 @@
                ReferencedContainer = "container:Packages/PreenCore">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6BD3F66338656A219C606ADE"
+               BuildableName = "PreenTests.xctest"
+               BlueprintName = "PreenTests"
+               ReferencedContainer = "container:Preen.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

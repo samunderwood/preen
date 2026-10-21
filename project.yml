@@ -105,6 +105,20 @@ targets:
           PRODUCT_BUNDLE_IDENTIFIER: com.samunderwood.Preen.dev
           APP_NAME: Preen Dev
           SERVICE_TITLE: Clean Links (Preen Dev)
+  PreenTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: PreenTests
+      # Compiled in rather than tested through the app, which would watch the clipboard.
+      - path: Preen/Clipboard/ClipboardWatcher.swift
+    dependencies:
+      - package: PreenCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.samunderwood.PreenTests
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   Preen:
     build:
@@ -113,3 +127,4 @@ schemes:
     test:
       targets:
         - package: PreenCore/PreenCoreTests
+        - PreenTests
