@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build and test
+    # Matches the Xcode releases are built with. xcode-27 is a preview image, so jobs can queue.
+    runs-on: xcode-27
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_27.1.app
+
+      # SamKit is private. Its read-only deploy key is this repository's SAMKIT_DEPLOY_KEY, and the
+      # tests build with the system git client, which honours this SSH set-up.
+      - name: Give Swift Package Manager access to SamKit
+        env:
+          SAMKIT_DEPLOY_KEY: ${{ secrets.SAMKIT_DEPLOY_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ -z "$SAMKIT_DEPLOY_KEY" ]]; then
+            echo "::error::Preen depends on SamKit, a private package. Pull requests from forks do not receive this repository's secrets, so CI cannot fetch SamKit or build the change. A maintainer will build and test it."
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SAMKIT_DEPLOY_KEY" > ~/.ssh/samkit
+          chmod 600 ~/.ssh/samkit
+          gh api meta --jq '.ssh_keys[] | "github.com " + .' >> ~/.ssh/known_hosts
+          printf 'Host github.com\n  IdentityFile ~/.ssh/samkit\n  IdentitiesOnly yes\n' >> ~/.ssh/config
+          git config --global url."git@github.com:samunderwood/samkit".insteadOf https://github.com/samunderwood/samkit
+          git ls-remote -q https://github.com/samunderwood/samkit HEAD >/dev/null
+
+      - name: Build and run the tests
+        run: |
+          set -o pipefail
+          xcodebuild test -project Preen.xcodeproj -scheme Preen -configuration Debug \
+            -destination 'platform=macOS,arch=arm64' -derivedDataPath "${{ runner.temp }}/preen-ci.noindex" \
+            -scmProvider system CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM='' \
+            2>&1 | tee "${{ runner.temp }}/xcode-tests.log"
+
+      - name: Run the PreenCore package tests
+        run: |
+          set -o pipefail
+          swift test --package-path Packages/PreenCore 2>&1 | tee "${{ runner.temp }}/package-tests.log"
+
+      - name: Keep the test logs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-logs
+          path: |
+            ${{ runner.temp }}/xcode-tests.log
+            ${{ runner.temp }}/package-tests.log
+          if-no-files-found: ignore
