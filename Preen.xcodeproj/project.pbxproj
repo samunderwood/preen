@@ -297,7 +297,7 @@
 			mainGroup = 9272246361B27DD09CEC7D27;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */,
+				73FA10212174DE02C33D53C5 /* XCRemoteSwiftPackageReference "samkit" */,
 				CC799A7EE810C58E27DED899 /* XCLocalSwiftPackageReference "Packages/PreenCore" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -655,9 +655,9 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */ = {
+		73FA10212174DE02C33D53C5 /* XCRemoteSwiftPackageReference "samkit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/samunderwood/samkit";
+			repositoryURL = "https://github.com/samunderwooduk/samkit";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.11.0;
@@ -668,7 +668,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0B32C36EBA8E308D5AFE8F14 /* SamKitUpdates */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */;
+			package = 73FA10212174DE02C33D53C5 /* XCRemoteSwiftPackageReference "samkit" */;
 			productName = SamKitUpdates;
 		};
 		362FC826B56BEB171D9B19BC /* PreenCore */ = {
@@ -681,7 +681,7 @@
 		};
 		6F778E03ECD3259B42F5E30B /* SamKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CBE455D985F4151EBB4BBC53 /* XCRemoteSwiftPackageReference "samkit" */;
+			package = 73FA10212174DE02C33D53C5 /* XCRemoteSwiftPackageReference "samkit" */;
 			productName = SamKit;
 		};
 /* End XCSwiftPackageProductDependency section */
