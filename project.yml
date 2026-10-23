@@ -8,7 +8,7 @@ packages:
   PreenCore:
     path: Packages/PreenCore
   SamKit:
-    url: https://github.com/samunderwood/samkit
+    url: https://github.com/samunderwooduk/samkit
     from: 0.11.0
 settings:
   base:

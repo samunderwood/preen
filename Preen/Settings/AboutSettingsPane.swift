@@ -5,7 +5,7 @@ import SamKitUpdates
 import SwiftUI
 
 enum Links {
-    static let sourceCode = URL(string: "https://github.com/samunderwood/preen")!
+    static let sourceCode = URL(string: "https://github.com/samunderwooduk/preen")!
     static let licence = URL(string: "https://www.gnu.org/licenses/gpl-3.0.html")!
 }
 

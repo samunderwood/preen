@@ -40,8 +40,8 @@ jobs:
           chmod 600 ~/.ssh/samkit
           gh api meta --jq '.ssh_keys[] | "github.com " + .' >> ~/.ssh/known_hosts
           printf 'Host github.com\n  IdentityFile ~/.ssh/samkit\n  IdentitiesOnly yes\n' >> ~/.ssh/config
-          git config --global url."git@github.com:samunderwood/samkit".insteadOf https://github.com/samunderwood/samkit
-          git ls-remote -q https://github.com/samunderwood/samkit HEAD >/dev/null
+          git config --global url."git@github.com:samunderwooduk/samkit".insteadOf https://github.com/samunderwooduk/samkit
+          git ls-remote -q https://github.com/samunderwooduk/samkit HEAD >/dev/null
 
       - name: Build and run the tests
         run: |

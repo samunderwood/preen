@@ -1,10 +1,10 @@
 {
-  "originHash" : "f857ed79dca855878eb535892c6c423e2b55fb42f452bf6dabc9696a47f0c77d",
+  "originHash" : "e829cc13ed3df65a2ba9705ed6fd2e533d97847679cca01cd69c4c1beca0ef5f",
   "pins" : [
     {
       "identity" : "samkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/samunderwood/samkit",
+      "location" : "https://github.com/samunderwooduk/samkit",
       "state" : {
         "revision" : "c0aba294627798dce493bcda8a269bf453689494",
         "version" : "0.11.0"

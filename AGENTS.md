@@ -56,7 +56,7 @@ Use the `mac-app-release` skill for releases and release notes.
 
 ## CI
 
-`.github/workflows/ci.yml` builds and tests the committed project, then runs the PreenCore package tests. It needs the repository's `SAMKIT_DEPLOY_KEY` secret, a read-only deploy key on `samunderwood/samkit`.
+`.github/workflows/ci.yml` builds and tests the committed project, then runs the PreenCore package tests. It needs the repository's `SAMKIT_DEPLOY_KEY` secret, a read-only deploy key on `samunderwooduk/samkit`.
 
 Fork pull requests cannot fetch SamKit because they receive no repository secrets; a maintainer will build and test those changes.
 
